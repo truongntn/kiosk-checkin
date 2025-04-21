@@ -9,6 +9,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-}
+  env: {
+    BACKEND_URL: "https://kiosk-checkin-backend.onrender.com/",
+  },
+};
 
-export default nextConfig
+export default nextConfig;

@@ -5,10 +5,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import Confetti from "./confetti"
 
 interface SuccessScreenProps {
-  points: number
+  points: number,
+  customerName: string,
+  customerPhone: string,
 }
 
-export default function SuccessScreen({ points }: SuccessScreenProps) {
+export default function SuccessScreen({ points, customerName, customerPhone }: SuccessScreenProps) {
   const [showPoints, setShowPoints] = useState(false)
   const [showText, setShowText] = useState(false)
   const [showFinalElements, setShowFinalElements] = useState(false)
@@ -154,7 +156,7 @@ export default function SuccessScreen({ points }: SuccessScreenProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.5 }}
             >
-              A Dang Your current points:
+              {customerName}, your current points:
             </motion.p>
           )}
         </AnimatePresence>

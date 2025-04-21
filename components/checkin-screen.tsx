@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { X, ArrowLeft } from "lucide-react"
+import { X, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
 
 interface CheckinScreenProps {
   phoneNumber: string
@@ -70,61 +71,114 @@ export default function CheckinScreen({ phoneNumber, setPhoneNumber, onCheckin }
     <div className="flex flex-col md:flex-row w-full h-full">
       {/* Left Side - Promotional Content */}
       <div className="w-full md:w-1/2 p-6 flex flex-col" style={{ backgroundColor: "#f05122" }}>
-        <div className="mb-4">
-          <div className="text-white text-sm">Welcome to</div>
-          <h2 className="text-white text-3xl font-bold">PERDIGI CHECKIN</h2>
-          <p className="text-white text-sm">(800) 652-8234</p>
+        {/* Rearranged layout - Promotional carousel moved higher */}
+        <div className="mb-4 text-center">
+          <div className="w-48 h-auto mx-auto mb-2">
+            <Image src="/images/perdigi-logo.png" alt="Perdigi Logo" width={200} height={80} priority />
+          </div>
+          <h2 className="text-white text-2xl font-bold mb-1">Check-In System</h2>
+          <p className="text-white text-sm">
+          0433 605 645</p>
         </div>
 
-        <div className="flex-1 flex items-center justify-center relative">
+        {/* Promotional carousel - increased height */}
+        <div className="flex-1 flex items-start justify-center relative pt-20">
           <motion.div
-            className="absolute inset-0 flex items-center"
+            className="w-full flex items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
+            {/* Enhanced left arrow button */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 z-10 text-white opacity-70 hover:opacity-100"
+              className="absolute left-0 z-10 bg-white/20 hover:bg-white/40 rounded-full w-10 h-10 flex items-center justify-center -ml-1 transform -translate-x-1/2 transition-all duration-300 backdrop-blur-sm"
               aria-label="Previous slide"
             >
-              <span className="text-3xl">&laquo;</span>
+              <ChevronLeft className="h-6 w-6 text-white" />
             </button>
 
-            <div className="w-full overflow-hidden">
+            {/* Added border radius to the slider container and increased height */}
+            <div className="w-full overflow-hidden rounded-2xl shadow-lg">
               <motion.div
-                className="flex"
+                className="flex h-64" /* Increased height */
                 initial={{ x: 0 }}
                 animate={{ x: -currentSlide * 100 + "%" }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 {slides.map((slide, index) => (
-                  <div key={index} className="min-w-full px-8">
-                    <div className="bg-white p-6 rounded-lg w-full max-w-xs mx-auto text-center">
-                      <h3 className="text-4xl font-bold" style={{ color: "#f05122" }}>
+                  <div key={index} className="min-w-full h-full">
+                    <div className="bg-white p-6 w-full h-full mx-auto flex flex-col items-center justify-center">
+                      <h3 className="text-5xl font-bold" style={{ color: "#f05122" }}>
                         {slide.title}
                       </h3>
-                      <p className="text-gray-700 uppercase text-sm font-medium mt-2">{slide.subtitle}</p>
-                      <p className="text-3xl font-bold mt-1" style={{ color: "#000000" }}>
+                      <p className="text-gray-700 uppercase text-sm font-medium mt-4">{slide.subtitle}</p>
+                      <p className="text-4xl font-bold mt-2" style={{ color: "#000000" }}>
                         {slide.highlight}
                       </p>
+
+                      {/* Added decorative elements based on slide content */}
+                      {index === 0 && (
+                        <div className="mt-4 flex items-center">
+                          <motion.div
+                            className="w-8 h-8 rounded-full bg-yellow-400 mr-2"
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                          />
+                          <motion.div
+                            className="w-6 h-6 rounded-full bg-red-500"
+                            animate={{ scale: [1, 1.1, 1] }}
+                            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
+                          />
+                        </div>
+                      )}
+
+                      {index === 1 && (
+                        <div className="mt-4">
+                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f05122" strokeWidth="2">
+                            <path d="M14 3h-4v9h4V3z" />
+                            <path d="M14 12l-2 7-2-7" />
+                            <path d="M10 12h4" />
+                          </svg>
+                        </div>
+                      )}
+
+                      {index === 2 && (
+                        <div className="mt-4 flex">
+                          <motion.div
+                            className="w-8 h-8 rounded-full flex items-center justify-center bg-black text-white mr-2"
+                            animate={{ y: [0, -5, 0] }}
+                            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+                          >
+                            <span>+</span>
+                          </motion.div>
+                          <motion.div
+                            className="w-8 h-8 rounded-full flex items-center justify-center bg-black text-white"
+                            animate={{ y: [0, -5, 0] }}
+                            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
+                          >
+                            <span>5</span>
+                          </motion.div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
               </motion.div>
             </div>
 
+            {/* Enhanced right arrow button */}
             <button
               onClick={nextSlide}
-              className="absolute right-0 z-10 text-white opacity-70 hover:opacity-100"
+              className="absolute right-0 z-10 bg-white/20 hover:bg-white/40 rounded-full w-10 h-10 flex items-center justify-center -mr-1 transform translate-x-1/2 transition-all duration-300 backdrop-blur-sm"
               aria-label="Next slide"
             >
-              <span className="text-3xl">&raquo;</span>
+              <ChevronRight className="h-6 w-6 text-white" />
             </button>
           </motion.div>
         </div>
 
-        <div className="mt-auto flex justify-center space-x-1">
+        <div className="flex justify-center space-x-1 mt-4">
           {[0, 1, 2].map((dot) => (
             <motion.div
               key={dot}
@@ -134,6 +188,9 @@ export default function CheckinScreen({ phoneNumber, setPhoneNumber, onCheckin }
             />
           ))}
         </div>
+
+        {/* Empty space to push agreement to bottom */}
+        <div className="flex-1"></div>
 
         <div className="mt-4">
           <label className="flex items-start text-white text-sm bg-white/10 p-2 rounded-lg cursor-pointer">
@@ -145,8 +202,8 @@ export default function CheckinScreen({ phoneNumber, setPhoneNumber, onCheckin }
               onChange={() => setIsAgreed(!isAgreed)}
             />
             <span>
-              By entering my phone number, I agree to receive <strong>PERDIGI CHECKIN</strong> notifications via auto
-              text! Unsubscribe anytime and still participate in <strong>PERDIGI CHECKIN</strong>.
+              By entering my phone number, I agree to receive <strong>Perdigi</strong> notifications via auto text!
+              Unsubscribe anytime and still participate in <strong>Perdigi</strong>.
             </span>
           </label>
         </div>
@@ -162,7 +219,7 @@ export default function CheckinScreen({ phoneNumber, setPhoneNumber, onCheckin }
             >
               <span className="text-white font-bold text-sm">P</span>
             </div>
-            <span className="font-bold text-gray-800">PERDIGI</span>
+            <span className="font-bold text-gray-800"><Image src="/images/perdigi.png" alt="Perdigi Logo" width={100} height={40} priority /></span>
           </div>
         </div>
 

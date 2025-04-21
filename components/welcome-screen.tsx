@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface WelcomeScreenProps {
   onTap: () => void
@@ -80,9 +81,10 @@ export default function WelcomeScreen({ onTap }: WelcomeScreenProps) {
 
       {/* Center content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-        <div className="absolute top-10 bg-white text-gray-700 px-6 py-2 rounded-full flex items-center">
-          <div className="font-bold">PERDIGI CHECKIN</div>
-          <div className="text-sm ml-2 text-gray-500">1800-652-8234</div>
+        <div className="absolute top-10 px-6 py-3 rounded-full flex flex-col items-center">
+          <div className="w-40 h-auto">
+            <Image src="images/perdigi.png" alt="Perdigi Logo" width={200} height={80} priority />
+          </div>
         </div>
 
         {/* TAP TO CHECKIN text */}
