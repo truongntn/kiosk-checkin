@@ -32,6 +32,10 @@ export default function KioskApp() {
       setPoints(res.data.rewardPoints);
       setCustomerName(res.data.customerName);
       setCustomePhone(res.data.customerPhone);
+
+      const res1 = await axios.post(BACKEND_URL + 'createBooking', { customer_phone: phoneNumber });
+      console.log(res1.data);
+
     } catch (err) {
       if (axios.isAxiosError(err)) {
         console.log(err.response?.data?.message || 'Failed to check in');
